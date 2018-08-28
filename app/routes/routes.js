@@ -1,21 +1,10 @@
 module.exports = function(app, db) {
-    app.post('/notes', (req, res) => {
-      const note = { text: req.body.body, title: req.body.title };
-      db.collection('notes').insert(note, (err, result) => {
-        if (err) { 
-          res.send({ 'error': 'An error has occurred' }); 
-        } else {
-          res.send(result.ops[0]);
-        }
-      });
-    });
- 
-
+  
   var ObjectID = require('mongodb').ObjectID;
-    app.get('/notes/:id', (req, res) => {
+    app.get('/agents/:id', (req, res) => {
       const id = req.params.id;
       const details = { '_id': new ObjectID(id) };
-      db.collection('notes').findOne(details, (err, item) => {
+      db.collection('agents').findOne(details, (err, item) => {
         if (err) {
           res.send({'error':'An error has occurred'});
         } else {
@@ -24,9 +13,9 @@ module.exports = function(app, db) {
       });
     });
 
-  app.post('/notes', (req, res) => {
-      const note = { text: req.body.body, title: req.body.title };
-      db.collection('notes').insert(note, (err, result) => {
+  app.post('/agents', (req, res) => {
+      const agent = { text: req.body.body, title: req.body.title };
+      db.collection('agents').insert(agent, (err, result) => {
         if (err) { 
           res.send({ 'error': 'An error has occurred' }); 
         } else {
@@ -35,10 +24,10 @@ module.exports = function(app, db) {
       });
     });
 
-  app.delete('/notes/:id', (req, res) => {
+  app.delete('/agents/:id', (req, res) => {
     const id = req.params.id;
     const details = { '_id': new ObjectID(id) };
-    db.collection('notes').remove(details, (err, item) => {
+    db.collection('agents').remove(details, (err, item) => {
       if (err) {
         res.send({'error':'An error has occurred'});
       } else {
@@ -47,15 +36,27 @@ module.exports = function(app, db) {
     });
   });
 
-  app.put ('/notes/:id', (req, res) => {
+  app.put ('/agents/:id', (req, res) => {
     const id = req.params.id;
     const details = { '_id': new ObjectID(id) };
-    const note = { text: req.body.body, title: req.body.title };
-    db.collection('notes').update(details, note, (err, result) => {
+    const agent = { text: req.body.body, title: req.body.title };
+    db.collection('agents').update(details, agent, (err, result) => {
       if (err) {
           res.send({'error':'An error has occurred'});
       } else {
-          res.send(note);
+          res.send(agent);
+      } 
+    });
+  });
+
+  app.get('/agents/', (req, res) => {
+    const id = req.params.id;
+    const details = { '_id': new ObjectID(id) };
+    db.collection('agents').find({}).toArray( (err, result) => {
+      if (err) {
+        res.send({'error':'An error has occurred'});
+      } else {
+        res.send(result);
       } 
     });
   });
