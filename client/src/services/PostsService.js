@@ -1,7 +1,7 @@
 import api from '@/services/api'
 
 export default {
-  fetchPosts () {
-    return api().get('posts')
+  fetchAgents () {
+    return api().get('agents')
   }
 }
