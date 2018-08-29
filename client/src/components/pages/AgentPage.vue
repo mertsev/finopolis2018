@@ -2,30 +2,32 @@
   <div class="container-fluid">
     <div class="row">
      
-      <div class="col-lg-12 col-xs-12" >
-        <h3 class="col-lg-12 col-xs-12"> Список контрагентов </h3>
-        section.panel.panel-success( v-if="posts.length" )
-          .panel-heading
-          <table class="table table-striped">
-            tr
-              th Название 
-              th Описание
-              th Рейтинг
-              th Орфрейтинг
-              th Спаркрейтинг
-            tr( v-for="(post, index) in posts", :key="post.title" )
-              td <router-link :to="{ path: 'agent/'+post._id, params: { id: post._id }}"> {{ post.name }}</router-link>
-              td {{ post.description  }}
-              td {{ post.rating }}
-              td {{ post.orfrating }}
-              td {{ parseInt(post.sparkrating) }}
-          </table>
-        section.panel.panel-danger( v-else-if="posts.length" )
-          p
-            | There are no posts ... Lets add one now!
-          div
-            router-link( :to="{ name: 'NewPost' }" )
-              | add new post
+      <div class="col-lg-12 col-xs-12 text-left" >
+        <b class="col-lg-12 col-xs-12 text-secondary"> Название компании </b>
+        <h4 class="col-lg-12 col-xs-12 " style="margin-bottom: 20px"> <b> {{agent.name}} </b></h4>
+        <b class="col-lg-12 col-xs-12 text-secondary"> Описание </b>
+        <label class="col-lg-12 col-xs-12" > {{agent.description}} </label>
+        
+        section.panel.panel-success( v-if="reviews.length" )
+            table.table
+                tr 
+                    th Рейтинг
+                    th Орфрейтинг
+                    th Спаркрейтинг
+                tr
+                    td {{agent.rating}}
+                    td {{agent.orfrating}}
+                    td {{agent.sparkrating}}
+        
+        <b class="col-lg-12 col-xs-12 text-secondary"> Отзывы </b>
+        
+        div( v-for="(review, index) in reviews", :key="review._id" )
+            div.card.col-lg-12
+                div.card-body
+                    h5.card-title {{ review.reviewer }} 
+                    div.card-subtitle  <b class=" text-secondary">Рейтинг: {{ review.rating }}  Вес: {{ review.rating }} </b>
+                    div.card-text <b>Отзыв:</b> {{ review.message}}
+            
       </div>
     </div>
   </div>
@@ -37,24 +39,27 @@
     name: 'AgentPage',
     data () {
       return {
-        posts: []
+        reviews: [],
+        agent: []
       }
     },
     methods: {
       async getInfo(id) {
         const response = await AgentService.getAgentInfo(id)
-        console.log(response.data)
-        this.posts = response.data
+        this.agent = response.data
+        /* this.posts = response.data */
       },
       async getReview(id) {
-        const response = await AgentService.getAgentReview(id)
-        /* console.log(response.data)
-        this.posts = response.data */
+        const response = await AgentService.getAgentReview()
+        response.data.forEach(element => {
+            if (id == element.agent_id){this.reviews.push(element)}
+        });
       }
     },
     mounted () {
         this.id = this.$router.history.current.params.id
         this.getInfo(this.id)
+        this.getReview(this.id)
     }
   }
 </script>

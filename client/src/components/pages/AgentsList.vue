@@ -25,12 +25,14 @@
           <table class="table table-striped">
             tr
               th Название 
+              th ИНН (пример) 
               th Описание
               th Рейтинг
               th Орфрейтинг
               th Спаркрейтинг
             tr( v-for="(post, index) in posts", :key="post.title" )
               td <router-link :to="{ path: 'agent/'+post._id, params: { id: post._id }}"> {{ post.name }}</router-link>
+              td {{ post._id}}
               td {{ post.description  }}
               td {{ post.rating }}
               td {{ post.orfrating }}
