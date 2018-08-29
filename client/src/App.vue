@@ -34,9 +34,5 @@ h1 {
   border-left: 5px solid white;
   margin-top: 10px;
   margin-bottom: 10px;
-  /* position: absolute; */
-  /* top: 10px; */
-  /* bottom: 10px; */
-
 }
 </style>
