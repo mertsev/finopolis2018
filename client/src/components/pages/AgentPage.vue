@@ -12,9 +12,9 @@
         section.panel.panel-success.col-lg-8( v-if="reviews.length" )
             table.table
                 tr 
-                    th Рейтинг
-                    th Орфрейтинг
-                    th Спаркрейтинг
+                    th Оценка репутации
+                    th Оценка риск-факторов
+                    th Индексы ИС
                 tr
                     td {{agent.rating}}
                     td {{agent.orfrating}}

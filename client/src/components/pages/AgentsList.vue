@@ -26,9 +26,9 @@
               th Название 
               th ИНН 
               th Описание
-              th Рейтинг
-              th Орфрейтинг
-              th Спаркрейтинг
+              th Оценка репутации 
+              th Оценка риск-факторов
+              th Индексы ИС
             tr( v-for="(post, index) in posts", :key="post.title" )
               td <router-link :to="{ path: 'agent/'+post._id, params: { id: post._id }}"> {{ post.name }}</router-link>
               td {{ post.inn}}
