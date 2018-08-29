@@ -7,8 +7,8 @@ export default () => {
    /*  withCredentials: true,
     credentials: 'same-origin', */
     headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
+     /*  'Accept': 'application/json', */
+      /* 'Content-Type': 'application/json', */
      /*  'Access-Control-Allow-Origin': '*' */
   }
 

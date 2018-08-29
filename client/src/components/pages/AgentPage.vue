@@ -32,7 +32,7 @@
 </template>
 
 <script>
-  import AgentsService from '@/services/AgentsService'
+  import AgentService from '@/services/AgentService'
   export default {
     name: 'AgentPage',
     data () {
@@ -41,14 +41,20 @@
       }
     },
     methods: {
-      async getList () {
-        const response = await AgentsService.getAgents()
+      async getInfo(id) {
+        const response = await AgentService.getAgentInfo(id)
         console.log(response.data)
         this.posts = response.data
+      },
+      async getReview(id) {
+        const response = await AgentService.getAgentReview(id)
+        /* console.log(response.data)
+        this.posts = response.data */
       }
     },
     mounted () {
-      this.getList()
+        this.id = this.$router.history.current.params.id
+        this.getInfo(this.id)
     }
   }
 </script>
