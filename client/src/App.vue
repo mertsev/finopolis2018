@@ -29,7 +29,7 @@ export default {
 }
 h1 {
   font-size: 44pt;
-  font-weight: bold;
+  font-weight:600;
   color:white;
   border-left: 5px solid white;
   margin-top: 10px;

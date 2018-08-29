@@ -26,7 +26,7 @@
             div.card
                 div.card-body
                     h5.card-title {{ review.reviewer }} 
-                    div.card-subtitle  <b class=" text-secondary">Рейтинг: {{ review.rating }}  Вес: {{ review.rating }} </b>
+                    div.card-subtitle  <b class=" text-secondary">Рейтинг: {{ review.rating }} &emsp; Вес: {{ review.weight }} </b>
                     div.card-text <b>Отзыв:</b> {{ review.message}}
             
 
@@ -54,6 +54,15 @@
         response.data.forEach(element => {
             if (id == element.agent_id){this.reviews.push(element)}
         });
+        function compare(a, b) {
+          const wA = parseInt(a.weight);
+          const wB = parseInt(b.rating);
+
+          let comparison = 0;
+          wA > wB ? comparison = -1 : comparison = 1;
+          return comparison;
+        }
+        this.reviews.sort(compare)
       },
       routeHome() {
         this.$router.push('/')
