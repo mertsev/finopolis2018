@@ -54,14 +54,15 @@ module.exports = function(app, db) {
   // Get review info by ID
   app.get('/reviews/:id', (req, res) => {
     const id = req.params.id;
-    const details = { '_id': new ObjectID(id) };
-    db.collection('reviews').findOne(details, (err, item) => {
+    db.collection('reviews').find({ agent_id: id }.toArray( (err, item) => {
       if (err) {
         res.send({'error':'An error has occurred'});
-      } else {
-        res.send(item);
+      } else { 
+        console.log(item.ops);
+        //console.log(id);
+        res.send(item.ops);
       } 
-    });
+    }));
   });
 
   
@@ -97,6 +98,19 @@ module.exports = function(app, db) {
     const id = req.params.id;
     const details = { '_id': new ObjectID(id) };
     db.collection('agents').find({}).toArray( (err, result) => {
+      if (err) {
+        res.send({'error':'An error has occurred'});
+      } else {
+        res.send(result);
+      } 
+    });
+  });
+
+  // Get all reviews
+  app.get('/reviews/', (req, res) => {
+    const id = req.params.id;
+    const details = { '_id': new ObjectID(id) };
+    db.collection('reviews').find({}).toArray( (err, result) => {
       if (err) {
         res.send({'error':'An error has occurred'});
       } else {
